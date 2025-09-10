@@ -39,3 +39,34 @@ function calculateWPM() {
     const wpm = Math.round(wordCount / timeInMinutes);
     wpmDisplay.textContent = `WPM: ${wpm}`;
 }
+
+let isRemoveMode = false;
+
+function addButton() {
+    const select = document.getElementById('imageSelect');
+    const imageUrl = select.value;
+    if (!imageUrl) {
+        alert('Please select an image.');
+        return;
+    }
+
+    const button = document.createElement('button');
+    button.className = 'image-button';
+    button.style.backgroundImage = `url(${imageUrl})`;
+    button.onclick = function() {
+        if (isRemoveMode) {
+            button.remove();
+            toggleRemoveMode(); // Reset remove mode after deletion
+        }
+        // Add other click functionality here if needed
+    };
+
+    const container = document.getElementById('buttonContainer');
+    container.appendChild(button);
+}
+
+function toggleRemoveMode() {
+    isRemoveMode = !isRemoveMode;
+    const removeButton = document.getElementById('removeButton');
+    removeButton.classList.toggle('active', isRemoveMode);
+}
